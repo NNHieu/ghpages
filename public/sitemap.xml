@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>/404</loc>
+  </url>
+
+  <url>
+    <loc>/about</loc>
+  </url>
+
+  <url>
+    <loc>/blog</loc>
+  </url>
+
+  <url>
+    <loc></loc>
+  </url>
+
+  <url>
+    <loc>/projects</loc>
+  </url>
+
+  <url>
+    <loc>/tags</loc>
+  </url>
+
+  <url>
+    <loc>/blog/deriving-ols-estimator</loc>
+  </url>
+
+  <url>
+    <loc>/blog/github-markdown-guide</loc>
+  </url>
+
+  <url>
+    <loc>/blog/guide-to-using-images-in-nextjs</loc>
+  </url>
+
+  <url>
+    <loc>/blog/introducing-tailwind-nextjs-starter-blog</loc>
+  </url>
+
+  <url>
+    <loc>/blog/pictures-of-canada</loc>
+  </url>
+
+  <url>
+    <loc>/blog/the-time-machine</loc>
+  </url>
+
+  <url>
+    <loc>/blog/code-sample</loc>
+  </url>
+
+  <url>
+    <loc>/blog/my-fancy-title</loc>
+  </url>
+
+  <url>
+    <loc>/blog/nested-route/introducing-multi-part-posts-with-nested-routing</loc>
+  </url>
+
+  <url>
+    <loc>/blog/UML/Chapter 31 PAC-Bayes/note</loc>
+  </url>
+
+  <url>
+    <loc>/blog/UML/Chapter9/note</loc>
+  </url>
+
+  <url>
+    <loc>/tags/book</loc>
+  </url>
+
+  <url>
+    <loc>/tags/canada</loc>
+  </url>
+
+  <url>
+    <loc>/tags/code</loc>
+  </url>
+
+  <url>
+    <loc>/tags/feature</loc>
+  </url>
+
+  <url>
+    <loc>/tags/features</loc>
+  </url>
+
+  <url>
+    <loc>/tags/github</loc>
+  </url>
+
+  <url>
+    <loc>/tags/guide</loc>
+  </url>
+
+  <url>
+    <loc>/tags/holiday</loc>
+  </url>
+
+  <url>
+    <loc>/tags/images</loc>
+  </url>
+
+  <url>
+    <loc>/tags/learning-theory</loc>
+  </url>
+
+  <url>
+    <loc>/tags/math</loc>
+  </url>
+
+  <url>
+    <loc>/tags/markdown</loc>
+  </url>
+
+  <url>
+    <loc>/tags/multi-author</loc>
+  </url>
+
+  <url>
+    <loc>/tags/reflection</loc>
+  </url>
+
+  <url>
+    <loc>/tags/ols</loc>
+  </url>
+
+  <url>
+    <loc>/tags/next-js</loc>
+  </url>
+
+  <url>
+    <loc>/tags/tailwind</loc>
+  </url>
+
+  <url>
+    <loc>/tags/uml</loc>
+  </url>
+
+  <url>
+    <loc>/tags/writings</loc>
+  </url>
+</urlset>

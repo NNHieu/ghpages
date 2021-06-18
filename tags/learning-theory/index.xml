@@ -1,0 +1,34 @@
+
+  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+      <title>NNHieu's Blog</title>
+      <link>/blog</link>
+      <description>A blog created with Next.js and Tailwind.css</description>
+      <language>en-us</language>
+      <managingEditor> (NNHieu)</managingEditor>
+      <webMaster> (NNHieu)</webMaster>
+      <lastBuildDate>Sun, 02 May 2021 00:00:00 GMT</lastBuildDate>
+      <atom:link href="/tags/learning-theory/index.xml" rel="self" type="application/rss+xml"/>
+      
+  <item>
+    <guid>/blog/UML/Chapter 31 PAC-Bayes/note</guid>
+    <title>Chapter 31 PAC-Bayes</title>
+    <link>/blog/UML/Chapter 31 PAC-Bayes/note</link>
+    <description></description>
+    <pubDate>Sun, 02 May 2021 00:00:00 GMT</pubDate>
+    <author> (NNHieu)</author>
+    <category>learning theory</category><category>UML</category>
+  </item>
+
+  <item>
+    <guid>/blog/UML/Chapter9/note</guid>
+    <title>Chapter 9 Linear Predictor</title>
+    <link>/blog/UML/Chapter9/note</link>
+    <description></description>
+    <pubDate>Sun, 02 May 2021 00:00:00 GMT</pubDate>
+    <author> (NNHieu)</author>
+    <category>learning theory</category><category>UML</category>
+  </item>
+
+    </channel>
+  </rss>

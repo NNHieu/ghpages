@@ -1,134 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/404</loc>
+    <loc>/404</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/about</loc>
+    <loc>/about</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog</loc>
+    <loc>/blog</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app</loc>
+    <loc></loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/projects</loc>
+    <loc>/projects</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags</loc>
+    <loc>/tags</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/deriving-ols-estimator</loc>
+    <loc>/blog/deriving-ols-estimator</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/github-markdown-guide</loc>
+    <loc>/blog/github-markdown-guide</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/guide-to-using-images-in-nextjs</loc>
+    <loc>/blog/guide-to-using-images-in-nextjs</loc>
   </url>
 
   <url>
-    <loc
-      >https://tailwind-nextjs-starter-blog.vercel.app/blog/introducing-tailwind-nextjs-starter-blog</loc
-    >
+    <loc>/blog/introducing-tailwind-nextjs-starter-blog</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/pictures-of-canada</loc>
+    <loc>/blog/pictures-of-canada</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/the-time-machine</loc>
+    <loc>/blog/the-time-machine</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/code-sample</loc>
+    <loc>/blog/code-sample</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/blog/my-fancy-title</loc>
+    <loc>/blog/my-fancy-title</loc>
   </url>
 
   <url>
-    <loc
-      >https://tailwind-nextjs-starter-blog.vercel.app/blog/nested-route/introducing-multi-part-posts-with-nested-routing</loc
-    >
+    <loc>/blog/nested-route/introducing-multi-part-posts-with-nested-routing</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/book</loc>
+    <loc>/blog/UML/Chapter 31 PAC-Bayes/note</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/canada</loc>
+    <loc>/blog/UML/Chapter9/note</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/code</loc>
+    <loc>/tags/book</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/feature</loc>
+    <loc>/tags/canada</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/features</loc>
+    <loc>/tags/code</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/github</loc>
+    <loc>/tags/feature</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/guide</loc>
+    <loc>/tags/features</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/holiday</loc>
+    <loc>/tags/github</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/images</loc>
+    <loc>/tags/guide</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/markdown</loc>
+    <loc>/tags/holiday</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/math</loc>
+    <loc>/tags/images</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/multi-author</loc>
+    <loc>/tags/learning-theory</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/next-js</loc>
+    <loc>/tags/math</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/ols</loc>
+    <loc>/tags/markdown</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/reflection</loc>
+    <loc>/tags/multi-author</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/tailwind</loc>
+    <loc>/tags/reflection</loc>
   </url>
 
   <url>
-    <loc>https://tailwind-nextjs-starter-blog.vercel.app/tags/writings</loc>
+    <loc>/tags/ols</loc>
+  </url>
+
+  <url>
+    <loc>/tags/next-js</loc>
+  </url>
+
+  <url>
+    <loc>/tags/tailwind</loc>
+  </url>
+
+  <url>
+    <loc>/tags/uml</loc>
+  </url>
+
+  <url>
+    <loc>/tags/writings</loc>
   </url>
 </urlset>

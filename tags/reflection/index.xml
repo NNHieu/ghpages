@@ -1,22 +1,22 @@
 
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>Next.js Starter Blog</title>
-      <link>https://tailwind-nextjs-starter-blog.vercel.app/blog</link>
+      <title>NNHieu's Blog</title>
+      <link>/blog</link>
       <description>A blog created with Next.js and Tailwind.css</description>
       <language>en-us</language>
-      <managingEditor>address@yoursite.com (Tails Azimuth)</managingEditor>
-      <webMaster>address@yoursite.com (Tails Azimuth)</webMaster>
+      <managingEditor> (NNHieu)</managingEditor>
+      <webMaster> (NNHieu)</webMaster>
       <lastBuildDate>Wed, 15 Aug 2018 00:00:00 GMT</lastBuildDate>
-      <atom:link href="https://tailwind-nextjs-starter-blog.vercel.app/tags/reflection/index.xml" rel="self" type="application/rss+xml"/>
+      <atom:link href="/tags/reflection/index.xml" rel="self" type="application/rss+xml"/>
       
   <item>
-    <guid>https://tailwind-nextjs-starter-blog.vercel.app/blog/the-time-machine</guid>
+    <guid>/blog/the-time-machine</guid>
     <title>The Time Machine</title>
-    <link>https://tailwind-nextjs-starter-blog.vercel.app/blog/the-time-machine</link>
+    <link>/blog/the-time-machine</link>
     <description>The Time Traveller (for so it will be convenient to speak of him) was expounding a recondite matter to us. His pale grey eyes shone and twinkled, and his usually pale face was flushed and animated...</description>
     <pubDate>Wed, 15 Aug 2018 00:00:00 GMT</pubDate>
-    <author>address@yoursite.com (Tails Azimuth)</author>
+    <author> (NNHieu)</author>
     <category>writings</category><category>book</category><category>reflection</category>
   </item>
 

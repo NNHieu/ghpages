@@ -1,6 +1,6 @@
 ---
 title: Chapter 31 PAC-Bayes
-date: '2021-05-02'
+date: '2021-06-18'
 tags: ['learning theory', 'UML']
 draft: false
 summary: ''

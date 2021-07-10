@@ -1,6 +1,6 @@
 ---
 title: Chapter 9 Linear Predictor
-date: '2021-05-02'
+date: '2021-06-17'
 tags: ['learning theory', 'UML']
 draft: false
 summary: ''

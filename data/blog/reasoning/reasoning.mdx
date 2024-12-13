@@ -1,0 +1,55 @@
+---
+title: 'Localizing "Algorithms" in Pretrained LLMs'
+date: '2024-12-21'
+tags: ['auto-regressive models', 'reasoning']
+draft: false
+bibliography: references-data.bib
+summary: ''
+layout: PostSimple
+---
+
+## Introduction
+
+Symbolical reasoning (i.e., manipulating symbols based on logical rules) is important to solving many tasks.
+For example, arithmetic tasks might demand intricate intermediate steps to generalize.
+A long-standing debate has been about whether LLMs can reason symbolically.
+Since most natural language tasks might not need extensive internal processing, it's unclear if the prevailing LLMs - tailored mainly for natural language tasks or coding - can efficiently and accurately tackle these tasks.
+Some studies show LLMs can perform simple arithmetic operations when numbers are small, however, they struggle to perform with large numbers.
+
+Given a problem to LLMs, there are two modes of extracting the answer: (1) directly producing the output (i.e. one forward pass) or (2) letting the model output intermediate tokens before getting the answer (i.e. multiple forward passes).
+We call the first mode "internal thought" and the second mode is leveraged in scratchpad or chain of thought techniques.
+
+In this work, we investigate the limitation of LLMs when solving a problem "internally".
+_ Given an algorithmic problem, can LLMs identify an algorithm and perform it internally to solve the problem (the feasibility of directly producing the correct output)?.
+_ Can we augment GPT models to adapt to different difficulty levels?
+
+We answer these questions by designing tasks and analyzing internal representations of pre-trained GPT models when solving these tasks.
+
+We give an overview of our contributions below.
+_ We observe that even though LLMs can perform simple operations such as indexing operations when the array lengths are small, they struggle to perform with large numbers. Moreover, the performance of models on this particular task does not completely depend on the size of the models.
+_ Internal representation: We leverage the technique from [@meng2022locating].
+
+## Settings
+
+### Task and Dataset
+
+This case study investigates the LMs' ability to perform a simple operation: random-array-access.
+In this task, we give the model an array of one-digit numbers and query it to output the value at a given index.
+We chose this task because it is a fundamental operator in many algorithms (e.g. addition).
+Each problem instant can vary regarding array length and the queried index.
+To accomplish this task with arbitrary length, one hypothesis is that LMs should be able to perform a set of rules or steps regardless of the input. For example, the model should count and associate each element with their correct indices.
+We also consider another task where each value in an array is explicitly indexed by a single character.
+This is similar to the dictionary format.
+In this experiment, we prompt LMs to output their answers directly.
+
+Pre-trained LMs are evaluated under the zero-shot and few-shot prompting settings.
+We first sample a set of demonstrations to create prompts.
+The array length in each demonstration is randomly sampled from 3 to 5.
+The number of demonstrations in each prompt ranges from 0 (zero-shot prompting) to 5 (5-shot prompting).
+We generate the set of queries by varying the array length from 3 to 10.
+An example of the final prompt is given in Figure .
+This process produces a test dataset of 48000 samples.
+
+**References:**
+
+[^ref]

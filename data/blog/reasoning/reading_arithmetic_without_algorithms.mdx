@@ -1,0 +1,71 @@
+---
+title: '[Reading] Arithmetic without algorithms: Language models solve math with a bag of heuristics'
+date: '2024-11-29'
+tags: ['auto-regressive models', 'reasoning', 'understanding']
+draft: false
+bibliography: references-data.bib
+summary: ''
+layout: PostSimple
+---
+
+## Introduction
+
+The main question in this paper is
+
+<center>
+  "Do large language models (LLMs) solve reasoning tasks by learning robust generalizable
+  algorithms, or do they memorize training data?"
+</center>
+
+**What is memorization (in this context)?**
+
+While memorization is not clearly defined, it's seem to be commonly accepted that memorization leads to poor generalization.
+
+## Arithmetic circuit discovery
+
+**A circuit in transformer-based LLMs** refers to a minimal subset of inter-connected model components (MLP or attention heads) that perform the computations required for a specific task [@nikankin2024arithmetic].
+
+**Method:** Activation patching.
+
+**Identified circuit.**
+
+- The MLP layers affect the output probabilities more than the attention heads.
+- Very few attention heads are important to the circuit.
+
+**Evaluating circuit's Faithfulness.**
+
+1. Pre-compute mean activations for each model component (in each position) across all arithmetic prompts.
+2. Intervene on the evaluation prompts by replacing non-circuit component activations with their means.
+3. Measure $\operatorname{NL}(\mathbf{c})$ the logit of correct answer token normalized by the maximal logit, as a proxy for accuracy, when mean-ablating all components not in the circuit $\mathbf{c}$.
+
+$$
+\operatorname{F}(\mathbf{c}) = \frac{\operatorname{NL}(\mathbf{c}) - \operatorname{NL}(\empty)}{\operatorname{NL}(\mathbf{M}) - \operatorname{NL}(\empty)}
+$$
+
+where $\mathbf{M}$ is the entire model and $\operatorname{\mathbf{M}}$ is the normalized correct-answer logit when no component is ablated and $\operatorname{NL}(\empty)$ is the normalized correct answer logit when all components are mean-ablated.
+
+**Decomposing circuit MLPs to indivisual neurons**
+
+- Activation patching on individual neurons.
+- Only 200 neurons (roughly 1.5%) per layer are needed to achieve high faithfulness and correctly compute arithmetic prompts.
+
+## Arithmetic heuristics
+
+### Identifying Memorized heuristics
+
+$$
+\mathbf{h}^{l}_{\text{out}} = \operatorname{MLP}_{\text{in}} (\mathbf{h}^{l}_{\text{in}}) \cdot \mathbf{W}^{l}_{\text{out}}
+= \mathbf{h}^{l}_{\text{post}} \cdot \mathbf{W}^l_{\text{out}}
+= \sum^{d_{\text{mlp}}}_{n=0} \mathbf{h}^{l,n}_{\text{post}} \mathbf{v}^{l,n}_{\text{out}}
+$$
+
+where $\mathbf{h}^{l}_{\text{in}}, \mathbf{h}^{l}_{\text{out}} \in \mathbb{R}^{d}$ are the input and output representations of the MLP at layer $l$, respectively.
+
+Hypotheses:
+
+1. Keys correspond to numberical patterns, e.g., a neuron might activate strongly when both operands in an arithmetic operation are odd numbers; and
+2. The associated value vectors encode numberical tokens that represent plausible answer to the key patterns. (direct heuristics and indirect heuristics)
+
+## References
+
+[^ref]

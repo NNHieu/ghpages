@@ -1,0 +1,179 @@
+---
+title: 'Tangent kernel'
+date: '2021-08-09'
+tags: ['learning theory', 'NTK']
+draft: false
+bibliography: references-data.bib
+summary: ''
+layout: PostSimple
+authors: ['hieu']
+---
+
+I started writing these notes two three month after joining the FPT AI Residency program.
+
+## Intuition
+
+Các parametric models được dùng cho bài toán regression và classification có dạng $y(\theta, \mathbf{x})$. Trong quá trình training, tập dữ liệu huấn luyện được dùng để ước lượng vector tham số $\theta$ hoặc để tìm 1 phân bố posterior của vector này. Sau đó **training data bị bỏ đi** và các dự đoán cho input mới chỉ dựa trên vector tham số đã học được.
+
+Có một lớp các kĩ thuật nhận diện hình mẫu (pattern recognition) khác, giữ lại toàn bộ hoặc một bộ phận dữ liệu huấn luyện và được sử dụng cả trong pha dự đoán. Điển hình là các phương pháp memory-based như Parzen probability density model, nearest neightbors. Các kĩ thuật này thuộc nhóm non-parametric.
+
+Trong bài này ta quan tâm đến các parametric models được train bằng gradient-based method. Tức là, các tham số $\theta$ được điều chỉnh để sao cho tối ưu một hàm mục tiêu $L$ (được thực hiện trên tập training) bằng phương pháp tối ưu $G$, là một gradient-based method.
+
+Câu hỏi đặt ra là nếu từ một bộ tham số $\theta_0$, ta dùng traning example $z$, hàm loss $L$ và thuật toán $G$ thu được $\theta_1$ thì mô hình với bộ tham số mới mới $y(\theta_1, \cdot)$ sẽ thay đổi như thế nào so với $y(\theta_0, \cdot)$.
+
+Sự thay đổi này có thể được nhìn
+
+- từ không gian hàm số.
+- thay đổi giá trị của $y(\theta_1, \cdot)$ so với $y(\theta_0, \cdot)$ tại tập điểm input $\mathbf{X}$. Có thể liên quan đến việc $f(\mathbf{X})$ phụ thuộc như thế nào vào $f(z_X)$. (Kernel)
+
+Sau đây là một số ví d từ [blog](https://www.inference.vc/neural-tangent-kernels-some-intuition-for-kernel-gradient-descent/) của Ferenc Huszár sử dụng các parametric model đơn giản nhằm gợi lên ý tưởng để trả lời câu hỏi trên.
+
+### Hình dung với bài toán regression 1D
+
+#### Warming up: Lock-up table
+
+Giả sử miền domain ta quan tâm là $(-10, 20)$. Chúng ta sử dụng cách tham số hoá dạng lock-up table, tức là $f(W,i) = W_i$ với $i \in \mathbb{Z}$. Khởi tạo các tham số của mô hình trên bằng $W_i(0) = 3i + 2$, khi đó $f(x)$ sẽ được biểu diễn bằng các chấm đen sau:
+
+![](https://i.imgur.com/phbC0zY.png)
+
+Nếu sau đó ta có được một datapoint mới $z=(x, y)=(10, 50)$ (dấu nhân màu xanh) và cập nhật $W$ sử dụng GD với loss là $[f(W, 10) - 50]^2$, lr $\eta = 0.1$. Do giá trị của $f(W, i)$ tại điểm $x = 10$ chỉ phụ thuộc vào $W_{10}$, nên chỉ có $W_{10}$ cập nhật, các giá trị còn lại của $W$ không đổi. Và theo định nghĩa $f(W(0), x)$ và $f(W(1\eta), x)$ chỉ khác nhau tại $x =10$, do đó chỉ có dấu chấm tại $x =10$ di chuyển trong đồ thị trên.
+
+#### Linear function
+
+Tiếp theo, ta hãy xem thử hàm tuyến tính sau $f(W) = W_1x + W_2$.
+
+![](https://i.imgur.com/dE1CTXG.png)
+
+Do giá trị của hàm số không còn độc lập về mặt tham số với nhau nữa. Các giá trị này được yêu cầu là phải có dạng tuyến tính và phụ thuộc lẫn nhau qua $W$. Hay nói cách khác, chúng không thể độc lập thay đổi. Như vậy khi ta cập nhật $W$ với điểm dữ liệu $z=(x, y)=(10, 50)$ thì không chỉ có điểm $x = 10$ di chuyển nữa mà tất cả các điểm khác, phụ thuộc vào các tham số được cập nhật đó ($\frac{d L(z)}{dW_i} \neq 0$), sẽ thay đổi theo.
+
+### Neural Tangent Kernel
+
+Một hàm số $f(\theta, \mathbf{x})$ có NTK $k_\theta(\mathbf{x}, \mathbf{x}')$ định lượng sự thay đổi tại $\mathbf{x}$ khi ta đi một bước gradient vô cùng nhỏ tại $\theta$ ứng với quan sát mới có được tại $\mathbf{x}'$.
+
+$$
+k_{\theta}\left(x, x^{\prime}\right)=\lim_{\eta \to 0}\dfrac{f\left( \theta+\eta \frac{d \mathcal{L}\left(\theta, x'\right)}{d \theta}, x\right)-f(\theta, x)}{\eta}
+$$
+
+Bằng cách sử dụng khai triển Taylor bậc nhất, ta có:
+
+$$
+k_{\theta}\left(x, x^{\prime}\right)=\left\langle\frac{\partial f_{\theta}(x)}{\partial \theta}, \frac{\partial f_{\theta}\left(x^{\prime}\right)}{\partial \theta}\right\rangle
+$$
+
+## Mathematical View
+
+Với bộ data $S=(\mathbf{x}, \mathbf{y})_i$ cố định có kích thước $N$.
+
+Đặt $U_S: \mathbb{R}^P \to \mathbb{R}^N$ với $U_S(\theta) = (f(\theta, \mathbf{x}_i))_{i \in [N]}$ là output của mạng trên tất cả $\mathbf{x}_i$ ứng với bộ tham số $\theta$. Đặt $\mathbf{u}(t) = U_S(\theta(t))$.
+
+Hàm Loss có dạng $L: \mathbb{R}^N \to \mathbb{R}$ với $L(\mathbf{u}) =\dfrac{1}{N}\sum_{n=1}^{N}l(u_n)$
+
+Sử dụng gradient flow
+
+$$
+\dfrac{\theta(t)}{dt} = -\nabla_{\theta_b} L \circ U_S(\theta(t))
+$$
+
+> Mệnh đề 1 (ứng với 8.1.1 trong sách ToDL):
+> Với $\mathbf{u}(t) = ... \in \mathbb{R}^n$. Khi đó sự phát triển của $\mathbf{u}(t)$ được biểu diễn:
+> $ \frac{d u(t)}{d t}=-H(t) \cdot(u(t)-y)$
+> Với $H(t)$ là một ma trận $n \times n$ PSD có phần tử $(i, j)$ là $\left<\frac{\partial f\left(w(t), x_{i}\right)}{\partial w}, \frac{\partial f\left(w(t), x_{j}\right)}{\partial w}\right>$
+
+Chứng minh:
+
+Đầu tiên ta xét quá trình cập nhật $\mathbf{w}$ sử dụng **GD flow**:
+
+$$
+\begin{aligned}
+\dfrac{d\theta_b(t)}{dt} &= -\nabla_{\theta_b} L \circ U_S(\theta_t) \\
+&= - (\nabla_\mathbf{u} L(\mathbf{u}_t))^T\nabla_{\theta_b} U_S(\theta_t) \\
+&= - \dfrac{1}{N}\sum_{i=1}^N\dfrac{dl}{du_i}(u_{ti})\dfrac{\partial f(\theta_t, \mathbf{x}_i)}{\partial \theta_b}
+\end{aligned}
+$$
+
+Khi đó, sự phát triển của $\mathbf{u}_i(t)$ qua thời gian (các bước lặp) được biểu diễn bằng công thức sau:
+
+$$
+\begin{aligned}
+\dfrac{d\mathbf{u}_i(t)}{dt} = \dfrac{df(\theta(t), \mathbf{x}_i)}{dt} &= \left(\dfrac{\partial f(\theta(t), \mathbf{x}_i)}{\partial \theta}\right)^T \dfrac{d\theta(t)}{dt} \\
+&= -\dfrac{1}{N}\sum_{j=1}^N\dfrac{dL}{du_j}(\mathbf{u}(t))\left(\dfrac{\partial f(\theta(t), \mathbf{x}_i)}{\partial \theta}\right)^T \dfrac{\partial f(\theta(t), \mathbf{x}_j)}{\partial \theta} \\
+&= -\dfrac{1}{N}\sum_{j=1}^N\dfrac{dL}{du_j}(\mathbf{u}(t))\left<\dfrac{\partial f(\theta(t), \mathbf{x}_i)}{\partial \theta}, \dfrac{\partial f(\theta(t), \mathbf{x}_j)}{\partial \theta}\right> \\
+&= -H_{i,:}(t)\cdot\dfrac{dL}{d\mathbf{u}}(\mathbf{u}(t))
+\end{aligned}
+$$
+
+Như vậy ta có:
+
+$$
+\frac{d \mathbf{u}(t)}{d t}=-H(t) \cdot \dfrac{dL}{d\mathbf{u}}(\mathbf{u}(t)).\tag*{$\square$}
+$$
+
+#### Nhận xét
+
+Trong quá trình chứng minh ta thực hiện 2 bước chính.
+
+- $\dfrac{d\theta(t)}{dt}$: Xác định ảnh hưởng của các output $\mathbf{u}_i(t)$ đến cập nhật tham số $\theta$ thông qua loss function $L$.
+- $\dfrac{d\mathbf{u}_i(t)}{dt} = \left<\dfrac{\partial \mathbf{u}_i(t)}{\partial \theta}, \dfrac{d\theta(t)}{dt}\right>$: Tính toán việc cập nhật $\theta$ ảnh hưởng như thế nào đến output tại điểm dữ liệu $\mathbf{x}_i$
+
+Bằng cách kết hợp 2 bước này, ta có thể tính được quan hệ trong quá trình cập nhật giữa output của hàm tại điểm $\mathbf{x}_i$ với output của hàm tại các điểm trong training set $S$. Đây cũng là tư tưởng có được từ phần **Intuition** ở trên.
+
+Ngoài các điểm dữ liệu trong tập training set $S$ chứng minh trên có thể mở rộng với điểm $\mathbf{x}$ bất kì.
+
+$$
+\begin{aligned}
+\dfrac{df(\theta(t), \mathbf{x})}{dt} &= \left<\dfrac{\partial f(\theta(t), \mathbf{x})}{\partial \theta}, \dfrac{d\theta(t)}{dt} \right>\\
+&= -\dfrac{1}{N}\sum_{j=1}^N\dfrac{dL}{du_j}(\mathbf{u}(t))\left<\dfrac{\partial f(\theta(t), \mathbf{x})}{\partial \theta}, \dfrac{\partial f(\theta(t), \mathbf{x}_j)}{\partial \theta}\right> \\
+\end{aligned}
+$$
+
+### Hướng tiếp cận trong paper của Arthur Jacot
+
+Định nghĩa 1 không gian hàm số (hypothesis space) $\mathcal{F} \equiv \{f: \mathbb{R}^{in} \to \mathbb{R}^{out}\}$ và seminorm $\|\cdot\|_S$ được định nghĩa dưới dạng positive bilinear $\left<f, g\right>_S=\underset{\mathbf{x} \sim S_X}{\mathbb{E}}\left[f(\mathbf{x})\cdot g(\mathbf{x})\right]$
+
+Ta chỉnh lại $U_S$ thành hàm $\mathcal{F} \to \mathbb{R}^N \times \mathbb{R}^{out}$ với $U_S(f) = (f(\mathbf{x}_i))_{i \in [N]}$.
+
+Gọi $F: \mathbb{R}^P \to \mathcal{F}$ là realization function với $F(\theta) = f(\theta, \cdot)$. Đặt $C: \mathcal{F} \to \mathbb{R}$ là functional cost với $C(f)=L(U_S(f))$. Như vậy $C \circ F (\theta) = L(U_S(f(\theta, \cdot)))$.
+
+Kí hiệu functional derivative của $C$ tại $f_0$ là $\left.\dfrac{\delta C}{\delta f}\right|_{f_0}$ và functional derivative của $C$ tại $f_0$ theo $d \in \mathcal{F}$ là $\partial_f C|_{f_0}: \mathcal{F} \to \mathbb{R}$. Ta có:
+
+$$
+\begin{aligned}
+\partial_f C|_{f_0}(d)=  \int \left.\dfrac{\delta C}{\delta f}\right|_{f_0}(\mathbf{x})d(\mathbf{x})d\mathbf{x} &= \lim_{\epsilon \to 0}\dfrac{C(f_0 + \epsilon d) - C(f_0)}{\epsilon} \\
+&= \lim_{\epsilon \to 0}\dfrac{L(\mathbf{u}_0 + \epsilon \mathbf{u}_d) - L(\mathbf{u}_0)}{\epsilon} \\
+&= \nabla_\mathbf{u} L(\mathbf{u}_0) \cdot \mathbf{u}_d
+\end{aligned}
+$$
+
+Có thể thấy hàm $\left.\dfrac{\delta C}{\delta f}\right|_{f_0}: \mathcal{F} \to R$ là một hàm tuyến tính và có operator norm $\|\left.\dfrac{\delta C}{\delta f}\right|_{f_0}\|_S=\sup_{f \in \mathcal{F}} \dfrac{\|\left.\dfrac{\delta C}{\delta f}\right|_{f_0}(f)\|}{\|f\|_S}= \nabla_\mathbf{u}L(\mathbf{u}_0)$. Nếu $\nabla_\mathbf{u}L(\mathbf{u}_0) < \infty$ ta có $\left.\dfrac{\delta C}{\delta f}\right|_{f_0}$ liên tục w.r.t seminorm $\|\cdot\|_S$.
+Khi đó theo định lý Riesz representation
+
+Gọi $d|_{f_0} \in \mathcal{F}$ là hàm thoả mãn $\nabla_\mathbf{u} L(\mathbf{u}_0) = U_S(d|_{f_0})$. Khi đó ta có $\partial_f C|_{f_0}(d)=\left<d|_{f_0}, d\right>_S$
+
+Ta có thể sửa lại kết quả có được từ phần trên một chút:
+
+$$
+\begin{aligned}
+\dfrac{d\theta_p(t)}{dt} &= -\partial_{\theta_p} L \circ U_S(F(\theta(t))) \\
+&= - (\nabla_\mathbf{u} L(\mathbf{u}(t)))^T\partial_{\theta_p} U_S(F(\theta(t))) \\
+&= -\left<d|_{F(\theta(t))}, \partial_{\theta_p}F(\theta(t))\right>_S
+\end{aligned}
+$$
+
+Và
+
+$$
+\begin{aligned}
+\dfrac{df(\theta(t), \mathbf{x})}{dt} &= \sum_{p \in [P]}\dfrac{\partial f(\theta(t), \mathbf{x})}{\partial \theta_p} \dfrac{d\theta_p(t)}{dt} \\
+&=- \sum_{p \in [P]}\partial_{\theta_p} f(\theta(t), \mathbf{x})  \left<d|_{F(\theta(t))}, \partial_{\theta_p}F(\theta_t\right>_S\\
+&=- \dfrac{1}{N}\sum_{j = 0}^N\left\{\sum_{p \in [P]}\left[\partial_{\theta_p} F(\theta(t))(\mathbf{x}) \otimes \partial_{\theta_p} F(\theta(t))(\mathbf{x}_j))\right]d|_{F(\theta(t))}(\mathbf{x}_j)\right\} \\
+&= -\frac{1}{N} \sum_{j=1}^{N} K\left(\mathbf{x}, \mathbf{x}_{j}\right) d|_{F(\theta(t))}\left(\mathbf{x}_{j}\right) \\
+&= \left.\nabla_{K_{\theta(t)}} C\right|_{F(\theta(t))}(\mathbf{x})
+\end{aligned}
+$$
+
+với $K_\theta(\mathbf{x}, \mathbf{x}') = \sum_{p=1}^{P} \partial_{\theta_{p}} F(\theta)(\mathbf{x}) \otimes \partial_{\theta_{p}} F(\theta)(\mathbf{x}')$
+
+## Tiếp theo:
+
+- Dynamic của NTK
+- Các lý thuyết sử dụng NTK để nghiên cứu infinitely wide feed-forward neural networks

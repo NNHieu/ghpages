@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: 'Start from Random Blog',
-  author: 'Hieu Nguyen Ngoc',
-  headerTitle: 'Magenta Blog',
+  title: 'NHN',
+  author: 'Ngoc-Hieu Nguyen',
+  headerTitle: 'NHN',
   description: 'A blog',
   language: 'en-us',
   theme: 'system', // system, dark or light

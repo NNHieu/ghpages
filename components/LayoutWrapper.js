@@ -6,29 +6,23 @@ import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
+import SocialIcon from '@/components/social-icons'
 
 const LayoutWrapper = ({ children }) => {
+  const email = 'ngochieutb13@gmail.com'
+  const github = 'https://github.com/NNHieu'
+  const linkedin = 'https://www.linkedin.com/in/hieunn-uet/'
+  const twitter = 'https://x.com/home'
+
   return (
     <SectionContainer>
-      <div className="flex h-screen flex-col justify-between">
-        <header className="flex items-center justify-between py-10">
-          <div>
-            <Link href="/" aria-label={siteMetadata.headerTitle}>
-              <div className="flex items-center justify-between">
-                <div className="mr-3">
-                  <Logo />
-                </div>
-                {typeof siteMetadata.headerTitle === 'string' ? (
-                  <div className="hidden h-6 text-2xl font-semibold sm:block">
-                    {siteMetadata.headerTitle}
-                  </div>
-                ) : (
-                  siteMetadata.headerTitle
-                )}
-              </div>
-            </Link>
-          </div>
-          <div className="flex items-center text-base leading-5">
+      <div className="dark:divide-gray-70 flex h-screen flex-col justify-between divide-y divide-gray-200">
+        <header className="flex items-center justify-between py-4">
+          <div className="leading-1 flex items-center text-base">
+            <div className="leading-1 flex items-center text-base">
+              <ThemeSwitch />
+              <MobileNav />
+            </div>
             <div className="hidden sm:block">
               {headerNavLinks.map((link) => (
                 <Link
@@ -40,8 +34,12 @@ const LayoutWrapper = ({ children }) => {
                 </Link>
               ))}
             </div>
-            <ThemeSwitch />
-            <MobileNav />
+            {/* <div className="flex space-x-3">
+              <SocialIcon kind="mail" href={`mailto:${email}`}  size={5} />
+              <SocialIcon kind="github" href={github}  size={5} />
+              <SocialIcon kind="linkedin" href={linkedin}  size={5} />
+              <SocialIcon kind="twitter" href={twitter}  size={5} />
+            </div> */}
           </div>
         </header>
         <main className="mb-auto">{children}</main>

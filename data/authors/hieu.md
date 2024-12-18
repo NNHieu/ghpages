@@ -12,7 +12,7 @@ linkedin: https://www.linkedin.com/in/hieunn-uet/
 github: https://github.com/NNHieu
 ---
 
-Wellcome to my homepage. I'm Hiếu (Pronounce: hɪəʊ - I will think of an English name later).
+Wellcome to my homepage. I'm Hiếu (Pronounce: hɪəʊ).
 I completed my B.Sc Computer Science degree at [VNU-UET](https://uet.vnu.edu.vn/en/), advised by [Dr. Hoang Thanh-Tung](https://scholar.google.com/citations?user=xZU08d0AAAAJ&hl=en) and [Dr. Viet-Cuong Ta](https://scholar.google.com/citations?hl=en&user=j9_spcUAAAAJ&view_op=list_works&sortby=pubdate). I'm currently a Research Assistant at [SAIL lab](https://www.sail-research.com/).
 
 My [Academic Resumé](static/AI_ML_Research_Resume.pdf) (updated in Dec 2024)
